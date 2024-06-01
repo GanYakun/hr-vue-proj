@@ -73,26 +73,27 @@ const resetForm = (formEl: FormInstance | undefined) => {
 </script>
 
 <template>
-    <el-row type="flex" align="middle">
-
-        <el-col :span="8" :offset="8" class="form">
+    <el-row type="flex">
+        <el-col :span="6" :offset="9" class="form">
             <el-form ref="ruleFormRef" size="large" autocomplete="off">
                 <el-form-item>
                     <h1>
                         注册
                     </h1>
                 </el-form-item>
-                <el-form-item prop="pass">
+                <el-form-item prop="username">
                     <el-input :prfix-icon="User" placeholder="请输入账号" />
                 </el-form-item>
-                <el-form-item prop="checkPass">
+                <el-form-item :prefix-icon="Lock" prop="checkPass">
                     <el-input placeholder="请输入密码" v-model="ruleForm.checkPass" type="password" autocomplete="off" />
                 </el-form-item>
-                <el-form-item prop="register">
-                    <el-checkbox>记住我</el-checkbox>
-                    <el-link type="primary">注册</el-link>
+                <el-form-item class="flex">
+                    <div class="flex">
+                        <el-checkbox class="remember">记住我</el-checkbox>
+                        <el-link type="primary" :underline="false" class="forgetPw">忘记密码？</el-link>
+                    </div>
                 </el-form-item>
-                <el-form-item> 
+                <el-form-item>
                     <el-button type="primary" :underline="false" @click="submitForm(ruleFormRef)">
                         Submit
                     </el-button>
@@ -107,8 +108,41 @@ const resetForm = (formEl: FormInstance | undefined) => {
 <style>
 .el-row {
     height: 100%;
+    background-image:  url('@/assets/login.png');
 }
+
+.forgetPw{
+    color: black;
+    font-weight: normal;
+}
+
 .el-link {
     float: right;
+}
+
+.remember {
+    color: black;
+    font-weight: normal;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    user-select: none;
+
+    .title {
+        margin: 0 auto;
+    }
+
+    .button {
+        width: 100%;
+    }
+
+    .flex {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
 }
 </style>
