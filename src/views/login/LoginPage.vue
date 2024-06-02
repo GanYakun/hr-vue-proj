@@ -3,6 +3,7 @@ import { reactive, ref, watch } from 'vue'
 import { User, Lock } from '@element-plus/icons-vue'
 import type { FormInstance, FormRules } from 'element-plus'
 const isRegister = ref(false)
+const isHiddenPassword = ref(true)
 const form = ref()
 const ruleFormRef = ref<FormInstance>()
 
@@ -50,6 +51,16 @@ const register = () => {
     isRegister.value = true
 }
 
+const displayPassword = () => {
+    isHiddenPassword.value = false
+}
+
+const hiddenPassword = () => {
+    isHiddenPassword.value = true
+}
+
+
+
 const submitForm = (formEl: FormInstance | undefined) => {
     if (!formEl) return
     formEl.validate((valid) => {
@@ -76,15 +87,15 @@ watch(isRegister, () => {
     <el-row type="login-page">
         <!-- 登录表单 -->
         <el-col :span="6" :offset="9" class="form">
-            <el-form :modle="formModel" :rules="rules" ref="form" size="large" autocomplete="off" v-if="isRegister">
+            <el-form :model="formModel" :rules="rules" ref="form" size="large" autocomplete="off" v-if="isRegister">
                 <el-form-item>
                     <h1>注册</h1>
                 </el-form-item>
                 <el-form-item prop="username">
                     <el-input v-model="formModel.username" :prefix-icon="User" placeholder="请输入账号" />
                 </el-form-item>
-                <el-form-item prop="password" class="registerInput">
-                    <el-input v-model="formModel.password" :prefix-icon="Lock" placeholder="请输入密码" type="password" />
+                <el-form-item prop="password" class="registerInput" v-if="isHiddenPassword">
+                    <el-input v-model="formModel.password" :prefix-icon="Lock" placeholder="请输入密码" type="password"/>
                 </el-form-item>
                 <el-form-item prop="repassword" class="registerInputAgain">
                     <el-input v-model="formModel.repassword" :prefix-icon="Lock" placeholder="请再次输入密码"
